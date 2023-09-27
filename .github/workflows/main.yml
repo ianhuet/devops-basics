@@ -17,13 +17,22 @@ jobs:
         id: timestamp
         run: echo "::set-output name=timestamp::$(date -u +"%Y%m%dT%H%M%S")"
 
+      # TODO: rationalise these outputs, remove duplication of repository name
+      - name: Get Frontend tag
+        id: fe_tag
+        run: echo "::set-output name=fe_tag::fe_dev_ops_basics:main-${{ steps.timestamp.outputs.timestamp }}"
+
+      - name: Get Backend tag
+        id: be_tag
+        run: echo "::set-output name=be_tag::be_dev_ops_basics:main-${{ steps.timestamp.outputs.timestamp }}"
+
       - name: Build frontend
         run: |
           cd frontend
           docker build -t 681666088935.dkr.ecr.eu-west-1.amazonaws.com/${RELEASE_NAME} .
           docker images
         env:
-          RELEASE_NAME: fe_dev_ops_basics:main-${{ steps.timestamp.outputs.timestamp }}
+          RELEASE_NAME: ${{ steps.fe_tag.outputs.fe_tag }}
 
       - name: Build backend
         run: |
@@ -31,7 +40,7 @@ jobs:
           docker build -t 681666088935.dkr.ecr.eu-west-1.amazonaws.com/${RELEASE_NAME} .
           docker images
         env:
-          RELEASE_NAME: be_dev_ops_basics:main-${{ steps.timestamp.outputs.timestamp }}
+          RELEASE_NAME: ${{ steps.be_tag.outputs.be_tag }}
 
       # - uses: mr-smithers-excellent/docker-build-push@v6
       #   name: Build & push Docker image
