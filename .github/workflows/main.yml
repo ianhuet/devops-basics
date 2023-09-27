@@ -23,7 +23,10 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          mask-password: 'true'
 
+      # TODO: change set-output - https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
       - name: Get current timestamp
         id: timestamp
         run: echo "::set-output name=timestamp::$(date -u +"%Y%m%dT%H%M%S")"
