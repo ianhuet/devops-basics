@@ -16,7 +16,8 @@ jobs:
       - name: Build frontend
         run: |
           cd frontend
-          docker build .
+          docker build -t 681666088935.dkr.ecr.eu-west-1.amazonaws.com/devOpsBasicsFE:main-$(date -u +"%Y%m%dT%H%M%S") .
+          docker images
 
       # - uses: mr-smithers-excellent/docker-build-push@v6
       #   name: Build & push Docker image
