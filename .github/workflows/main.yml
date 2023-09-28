@@ -25,6 +25,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
         with:
           mask-password: 'true'
+          registry-type: private
 
       # TODO: change set-output - https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
       - name: Get current timestamp
