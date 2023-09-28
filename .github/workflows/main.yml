@@ -39,11 +39,11 @@ jobs:
       # TODO: rationalise these outputs, remove duplication of repository name
       - name: Get Frontend tag
         id: fe_tag
-        run: echo "::set-output name=fe_tag::fe_dev_ops_basics:main-${{ steps.timestamp.outputs.timestamp }}"
+        run: echo "::set-output name=fe_tag::ecr_dev_ops_basics_frontend:main-${{ steps.timestamp.outputs.timestamp }}"
 
       - name: Get Backend tag
         id: be_tag
-        run: echo "::set-output name=be_tag::be_dev_ops_basics:main-${{ steps.timestamp.outputs.timestamp }}"
+        run: echo "::set-output name=be_tag::ecr_dev_ops_basics_backend:main-${{ steps.timestamp.outputs.timestamp }}"
 
       - name: Build frontend
         run: |

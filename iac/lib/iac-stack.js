@@ -16,10 +16,14 @@ class IacStack extends Stack {
       versioned: true
     });
 
-    const repository = new ecr.Repository(this, "ecrDevOpsBasics", {
-      repositoryName: "ecr_dev_ops_basics"
+    const repositoryFE = new ecr.Repository(this, "ecrDevOpsBasicsFE", {
+      repositoryName: "ecr_dev_ops_basics_frontend"
     });
-    repository.addLifecycleRule({ maxImageCount: 6 });
+    repositoryFE.addLifecycleRule({ maxImageCount: 3 });
+    const repositoryBE = new ecr.Repository(this, "ecrDevOpsBasicsBE", {
+      repositoryName: "ecr_dev_ops_basics_backend"
+    });
+    repositoryBE.addLifecycleRule({ maxImageCount: 3 });
   }
 }
 
