@@ -50,7 +50,7 @@ jobs:
           cd frontend
           docker build -t $ECR_REGISTRY/${RELEASE_NAME} .
           docker images
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$RELEASE_NAME
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           RELEASE_NAME: ${{ steps.fe_tag.outputs.fe_tag }}
@@ -60,7 +60,7 @@ jobs:
           cd backend
           docker build -t $ECR_REGISTRY/${RELEASE_NAME} .
           docker images
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$RELEASE_NAME
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           RELEASE_NAME: ${{ steps.be_tag.outputs.be_tag }}
