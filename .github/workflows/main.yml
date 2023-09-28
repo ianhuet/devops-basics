@@ -32,6 +32,10 @@ jobs:
         id: timestamp
         run: echo "::set-output name=timestamp::$(date -u +"%Y%m%dT%H%M%S")"
 
+      # - name: Get ECR path
+      #   id: ecr-path
+      #   run: echo "::set-output name=registry::681666088935.dkr.ecr.eu-west-1.amazonaws.com"
+
       # TODO: rationalise these outputs, remove duplication of repository name
       - name: Get Frontend tag
         id: fe_tag
@@ -44,17 +48,21 @@ jobs:
       - name: Build frontend
         run: |
           cd frontend
-          docker build -t 681666088935.dkr.ecr.eu-west-1.amazonaws.com/${RELEASE_NAME} .
+          docker build -t $ECR_REGISTRY/${RELEASE_NAME} .
           docker images
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           RELEASE_NAME: ${{ steps.fe_tag.outputs.fe_tag }}
 
       - name: Build backend
         run: |
           cd backend
-          docker build -t 681666088935.dkr.ecr.eu-west-1.amazonaws.com/${RELEASE_NAME} .
+          docker build -t $ECR_REGISTRY/${RELEASE_NAME} .
           docker images
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           RELEASE_NAME: ${{ steps.be_tag.outputs.be_tag }}
 
       # - uses: mr-smithers-excellent/docker-build-push@v6
