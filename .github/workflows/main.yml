@@ -72,4 +72,5 @@ jobs:
         working-directory: ./iac
         run: |
           npm install
+          cdk bootstrap
           cdk deploy --require-approval=never
