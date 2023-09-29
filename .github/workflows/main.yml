@@ -49,7 +49,6 @@ jobs:
         working-directory: ./frontend
         run: |
           docker build -t $ECR_REGISTRY/${RELEASE_NAME} .
-          docker images
           docker push $ECR_REGISTRY/$RELEASE_NAME
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -59,7 +58,6 @@ jobs:
         working-directory: ./backend
         run: |
           docker build -t $ECR_REGISTRY/${RELEASE_NAME} .
-          docker images
           docker push $ECR_REGISTRY/$RELEASE_NAME
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -74,5 +72,4 @@ jobs:
         working-directory: ./iac
         run: |
           npm install
-          cdk diff
-          # cdk deploy --require-approval=never
+          cdk deploy --require-approval=never
