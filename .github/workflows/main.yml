@@ -70,3 +70,9 @@ jobs:
           npm install -g aws-cdk
           cdk --version
 
+      - name: Deploy to AWS
+        working-directory: ./iac
+        run: |
+          npm install
+          cdk diff
+          # cdk deploy --require-approval=never
