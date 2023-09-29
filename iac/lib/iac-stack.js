@@ -14,7 +14,7 @@ class IacStack extends Stack {
 
     new EcrRepos( this,
       'ecrDevOpsBasics',
-      { maxImageCount: 3 }
+      { maxImageCount: 4 }
     );
   }
 }
