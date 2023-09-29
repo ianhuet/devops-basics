@@ -46,8 +46,8 @@ jobs:
         run: echo "::set-output name=be_tag::ecr_dev_ops_basics_backend:main-${{ steps.timestamp.outputs.timestamp }}"
 
       - name: Build frontend
+        working-directory: ./frontend
         run: |
-          cd frontend
           docker build -t $ECR_REGISTRY/${RELEASE_NAME} .
           docker images
           docker push $ECR_REGISTRY/$RELEASE_NAME
@@ -56,8 +56,8 @@ jobs:
           RELEASE_NAME: ${{ steps.fe_tag.outputs.fe_tag }}
 
       - name: Build backend
+        working-directory: ./backend
         run: |
-          cd backend
           docker build -t $ECR_REGISTRY/${RELEASE_NAME} .
           docker images
           docker push $ECR_REGISTRY/$RELEASE_NAME
@@ -65,12 +65,8 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           RELEASE_NAME: ${{ steps.be_tag.outputs.be_tag }}
 
-      # - uses: mr-smithers-excellent/docker-build-push@v6
-      #   name: Build & push Docker image
-      #   with:
-      #     image: repo/image
-      #     tags: v1, latest
-      #     registry: registry-url.io
-      #     dockerfile: Dockerfile.ci
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Install CDK
+        run: |
+          npm install -g aws-cdk
+          cdk --version
+
