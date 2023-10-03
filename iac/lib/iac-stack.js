@@ -13,7 +13,9 @@ class IacStack extends Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
 
-    const repoOptions = { maxImageCount: 4 };
+    console.log(process.env.ECR_REGISTRY, process.env.BE_RELEASE_NAME, process.env.FE_RELEASE_NAME);
+
+    const repoOptions = { maxImageCount: 3 };
     new EcrRepos( this, 'ecrDevOpsBasics', repoOptions );
 
     // new EcsContainer( this, 'ecsDevOpsBasics' );
