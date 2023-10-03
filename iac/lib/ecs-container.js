@@ -13,7 +13,7 @@ class EcsContainer extends Construct {
     const feRepo = ecrRepo.fromRepositoryArn( this, `fe_${id}`,
       `${ecrRepoArn}/ecr_dev_ops_basics_frontend`
     )
-    const feImage = ecs.ContainerImage.fromEcrRepository(feRepo, props.feTag)
+    const feImage = ecs.ContainerImage.fromEcrRepository(feRepo, props.releaseName)
     new ecsp.ApplicationLoadBalancedFargateService(this, `${id}Frontend`, {
       taskImageOptions: { image: feImage },
       publicLoadBalancer: true
@@ -22,10 +22,16 @@ class EcsContainer extends Construct {
     const beRepo = ecrRepo.fromRepositoryArn( this, `be_${id}`,
       `${ecrRepoArn}/ecr_dev_ops_basics_backend`
     );
-    const beImage = ecs.ContainerImage.fromEcrRepository(beRepo, props.beTag)
+    const beImage = ecs.ContainerImage.fromEcrRepository(beRepo, props.releaseName)
     new ecsp.ApplicationLoadBalancedFargateService(this, `${id}Backend`, {
-      taskImageOptions: { image: beImage },
-      publicLoadBalancer: true
+      taskImageOptions: {
+        image: beImage,
+        environment: {
+          PORT: 3000,
+        }
+      },
+      listenerPort: 3000,
+      publicLoadBalancer: true,
     });
   }
 }

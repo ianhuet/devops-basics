@@ -75,5 +75,4 @@ jobs:
           cdk bootstrap
           cdk deploy --require-approval=never
         env:
-          BE_RELEASE_NAME: ${{ steps.be_tag.outputs.be_tag }}
-          FE_RELEASE_NAME: ${{ steps.fe_tag.outputs.fe_tag }}
+          RELEASE_NAME: main-${{ steps.timestamp.outputs.timestamp }}

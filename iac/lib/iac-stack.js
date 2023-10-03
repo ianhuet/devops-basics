@@ -17,8 +17,7 @@ class IacStack extends Stack {
     new EcrRepos( this, 'ecrDevOpsBasics', repoOptions );
 
     const ecsOptions = {
-      beTag: process.env.BE_RELEASE_NAME,
-      feTag: process.env.FE_RELEASE_NAME,
+      releaseName: process.env.RELEASE_NAME,
     };
     new EcsContainer( this, 'ecsDevOpsBasics', ecsOptions);
   }
