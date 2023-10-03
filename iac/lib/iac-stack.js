@@ -1,6 +1,7 @@
 const { Stack } = require('aws-cdk-lib');
 
 const { EcrRepos } = require('./ecr-repos');
+// const { EcsContainer } = require('./ecs-container');
 
 class IacStack extends Stack {
   /**
@@ -12,10 +13,10 @@ class IacStack extends Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
 
-    new EcrRepos( this,
-      'ecrDevOpsBasics',
-      { maxImageCount: 4 }
-    );
+    const repoOptions = { maxImageCount: 4 };
+    new EcrRepos( this, 'ecrDevOpsBasics', repoOptions );
+
+    // new EcsContainer( this, 'ecsDevOpsBasics' );
   }
 }
 
