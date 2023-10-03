@@ -27,7 +27,7 @@ class EcsContainer extends Construct {
       taskImageOptions: {
         image: beImage,
         environment: {
-          PORT: 3000,
+          'PORT': '3000',
         }
       },
       listenerPort: 3000,
