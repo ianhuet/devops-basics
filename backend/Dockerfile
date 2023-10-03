@@ -5,5 +5,5 @@ ADD app /backend
 
 RUN npm install
 
-EXPOSE 3000
+EXPOSE 80
 ENTRYPOINT ["npm", "run", "start"]

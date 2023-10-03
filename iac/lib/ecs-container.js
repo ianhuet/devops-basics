@@ -10,14 +10,14 @@ class EcsContainer extends Construct {
     const ecrRepo = ecr.Repository;
     const ecrRepoArn = 'arn:aws:ecr:eu-west-1:681666088935:repository';
 
-    const feRepo = ecrRepo.fromRepositoryArn( this, `fe_${id}`,
-      `${ecrRepoArn}/ecr_dev_ops_basics_frontend`
-    )
-    const feImage = ecs.ContainerImage.fromEcrRepository(feRepo, props.releaseName)
-    new ecsp.ApplicationLoadBalancedFargateService(this, `${id}Frontend`, {
-      taskImageOptions: { image: feImage },
-      publicLoadBalancer: true
-    });
+    // const feRepo = ecrRepo.fromRepositoryArn( this, `fe_${id}`,
+    //   `${ecrRepoArn}/ecr_dev_ops_basics_frontend`
+    // )
+    // const feImage = ecs.ContainerImage.fromEcrRepository(feRepo, props.releaseName)
+    // new ecsp.ApplicationLoadBalancedFargateService(this, `${id}Frontend`, {
+    //   taskImageOptions: { image: feImage },
+    //   publicLoadBalancer: true
+    // });
 
     const beRepo = ecrRepo.fromRepositoryArn( this, `be_${id}`,
       `${ecrRepoArn}/ecr_dev_ops_basics_backend`
@@ -27,10 +27,10 @@ class EcsContainer extends Construct {
       taskImageOptions: {
         image: beImage,
         environment: {
-          'PORT': '3000',
+          'PORT': '80',
         }
       },
-      listenerPort: 3000,
+      listenerPort: 80,
       publicLoadBalancer: true,
     });
   }
