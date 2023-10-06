@@ -35,7 +35,7 @@ class EcsContainer extends Construct {
     });
     beService.targetGroup.configureHealthCheck({
       path: '/ping',
-      port: 81,
+      port: '81',
     });
   }
 }
