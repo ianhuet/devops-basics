@@ -1,7 +1,7 @@
 const { Stack } = require('aws-cdk-lib');
 
 const { EcrRepos } = require('./ecr-repos');
-const { EcsContainer } = require('./ecs-container');
+// const { EcsContainer } = require('./ecs-container');
 
 class IacStack extends Stack {
   /**
@@ -16,10 +16,10 @@ class IacStack extends Stack {
     const repoOptions = { maxImageCount: 3 };
     new EcrRepos( this, 'ecrDevOpsBasics', repoOptions );
 
-    const ecsOptions = {
-      releaseName: process.env.RELEASE_NAME,
-    };
-    new EcsContainer( this, 'ecsDevOpsBasics', ecsOptions);
+    // const ecsOptions = {
+    //   releaseName: process.env.RELEASE_NAME,
+    // };
+    // new EcsContainer( this, 'ecsDevOpsBasics', ecsOptions);
   }
 }
 
