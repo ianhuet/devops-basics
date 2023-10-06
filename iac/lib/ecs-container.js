@@ -27,10 +27,10 @@ class EcsContainer extends Construct {
       taskImageOptions: {
         image: beImage,
         environment: {
-          'PORT': '80',
+          'PORT': '81',
         }
       },
-      listenerPort: 80,
+      listenerPort: 81,
       publicLoadBalancer: true,
     });
   }
