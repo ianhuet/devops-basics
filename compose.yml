@@ -3,7 +3,7 @@ services:
     image: awesome-backend:latest
     build: backend/.
     ports:
-      - "3000:3000"
+      - "3000:81"
   db:
     image: postgres:15.4-alpine3.18
     ports:

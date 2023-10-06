@@ -23,7 +23,7 @@ class EcsContainer extends Construct {
       `${ecrRepoArn}/ecr_dev_ops_basics_backend`
     );
     const beImage = ecs.ContainerImage.fromEcrRepository(beRepo, props.releaseName)
-    new ecsp.ApplicationLoadBalancedFargateService(this, `${id}Backend`, {
+    const beService = new ecsp.ApplicationLoadBalancedFargateService(this, `${id}Backend`, {
       taskImageOptions: {
         image: beImage,
         environment: {
@@ -32,6 +32,10 @@ class EcsContainer extends Construct {
       },
       listenerPort: 81,
       publicLoadBalancer: true,
+    });
+    beService.targetGroup.configureHealthCheck({
+      path: '/ping',
+      port: 81,
     });
   }
 }
